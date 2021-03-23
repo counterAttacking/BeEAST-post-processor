@@ -28,19 +28,155 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.dockPnlMain = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.vS2015DarkTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015DarkTheme();
+            this.editEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buildBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllInputFilesDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiShowInputFileList = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileFToolStripMenuItem,
+            this.editEToolStripMenuItem,
+            this.viewVToolStripMenuItem,
+            this.buildBToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileFToolStripMenuItem
+            // 
+            this.fileFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openOToolStripMenuItem});
+            this.fileFToolStripMenuItem.Name = "fileFToolStripMenuItem";
+            this.fileFToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.fileFToolStripMenuItem.Text = "File(&F)";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // dockPnlMain
+            // 
+            this.dockPnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dockPnlMain.DockBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.dockPnlMain.Location = new System.Drawing.Point(0, 24);
+            this.dockPnlMain.Name = "dockPnlMain";
+            this.dockPnlMain.Padding = new System.Windows.Forms.Padding(6);
+            this.dockPnlMain.ShowAutoHideContentOnHover = false;
+            this.dockPnlMain.Size = new System.Drawing.Size(800, 404);
+            this.dockPnlMain.TabIndex = 2;
+            this.dockPnlMain.Theme = this.vS2015DarkTheme1;
+            // 
+            // editEToolStripMenuItem
+            // 
+            this.editEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteAllInputFilesDToolStripMenuItem});
+            this.editEToolStripMenuItem.Name = "editEToolStripMenuItem";
+            this.editEToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.editEToolStripMenuItem.Text = "Edit(&E)";
+            // 
+            // viewVToolStripMenuItem
+            // 
+            this.viewVToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.msiShowInputFileList,
+            this.statusOutputToolStripMenuItem});
+            this.viewVToolStripMenuItem.Name = "viewVToolStripMenuItem";
+            this.viewVToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.viewVToolStripMenuItem.Text = "View(&V)";
+            // 
+            // buildBToolStripMenuItem
+            // 
+            this.buildBToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.runRToolStripMenuItem});
+            this.buildBToolStripMenuItem.Name = "buildBToolStripMenuItem";
+            this.buildBToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.buildBToolStripMenuItem.Text = "Build(&B)";
+            // 
+            // runRToolStripMenuItem
+            // 
+            this.runRToolStripMenuItem.Name = "runRToolStripMenuItem";
+            this.runRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.runRToolStripMenuItem.Text = "Run(&R)";
+            // 
+            // openOToolStripMenuItem
+            // 
+            this.openOToolStripMenuItem.Name = "openOToolStripMenuItem";
+            this.openOToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openOToolStripMenuItem.Text = "Open(&O)";
+            // 
+            // deleteAllInputFilesDToolStripMenuItem
+            // 
+            this.deleteAllInputFilesDToolStripMenuItem.Name = "deleteAllInputFilesDToolStripMenuItem";
+            this.deleteAllInputFilesDToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.deleteAllInputFilesDToolStripMenuItem.Text = "Delete All Input Files(&D)";
+            // 
+            // msiShowInputFileList
+            // 
+            this.msiShowInputFileList.Name = "msiShowInputFileList";
+            this.msiShowInputFileList.Size = new System.Drawing.Size(180, 22);
+            this.msiShowInputFileList.Text = "Input File List";
+            this.msiShowInputFileList.Click += new System.EventHandler(this.MsiShowInputFileList_Click);
+            // 
+            // statusOutputToolStripMenuItem
+            // 
+            this.statusOutputToolStripMenuItem.Name = "statusOutputToolStripMenuItem";
+            this.statusOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.statusOutputToolStripMenuItem.Text = "Status Output";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dockPnlMain);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
+            this.IsMdiContainer = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BeEAST Post Processor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileFToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private WeifenLuo.WinFormsUI.Docking.DockPanel dockPnlMain;
+        private WeifenLuo.WinFormsUI.Docking.VS2015DarkTheme vS2015DarkTheme1;
+        private System.Windows.Forms.ToolStripMenuItem openOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllInputFilesDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem msiShowInputFileList;
+        private System.Windows.Forms.ToolStripMenuItem statusOutputToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buildBToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runRToolStripMenuItem;
     }
 }
