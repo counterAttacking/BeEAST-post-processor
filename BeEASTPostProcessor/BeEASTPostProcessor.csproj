@@ -77,8 +77,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\TxtFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\LogFileWriteService.cs" />
+    <Compile Include="Service\TxtFileOpenService.cs" />
     <Compile Include="View\FileExplorerForm.cs">
       <SubType>Form</SubType>
     </Compile>
