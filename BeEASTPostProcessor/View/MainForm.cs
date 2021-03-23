@@ -1,4 +1,5 @@
-﻿using BeEASTPostProcessor.Service;
+﻿using BeEASTPostProcessor.Manager;
+using BeEASTPostProcessor.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -62,6 +63,12 @@ namespace BeEASTPostProcessor.View
         private void MsiShowInputFileList_Click(object sender, EventArgs e)
         {
             this.frmFileExplorer.Show(this.dockPnlMain, DockState.DockLeft);
+        }
+
+        private async void MsiRun_Click(object sender, EventArgs e)
+        {
+            var manager = new ExtractManager();
+            await manager.Run();
         }
     }
 }
