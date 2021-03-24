@@ -35,7 +35,7 @@
             this.msiDeleteAllFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.viewVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msiShowInputFileList = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiShowStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.buildBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msiRun = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -91,7 +91,7 @@
             // 
             this.viewVToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.msiShowInputFileList,
-            this.statusOutputToolStripMenuItem});
+            this.msiShowStatus});
             this.viewVToolStripMenuItem.Name = "viewVToolStripMenuItem";
             this.viewVToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.viewVToolStripMenuItem.Text = "View(&V)";
@@ -99,15 +99,16 @@
             // msiShowInputFileList
             // 
             this.msiShowInputFileList.Name = "msiShowInputFileList";
-            this.msiShowInputFileList.Size = new System.Drawing.Size(149, 22);
+            this.msiShowInputFileList.Size = new System.Drawing.Size(180, 22);
             this.msiShowInputFileList.Text = "Input File List";
             this.msiShowInputFileList.Click += new System.EventHandler(this.MsiShowInputFileList_Click);
             // 
-            // statusOutputToolStripMenuItem
+            // msiShowStatus
             // 
-            this.statusOutputToolStripMenuItem.Name = "statusOutputToolStripMenuItem";
-            this.statusOutputToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.statusOutputToolStripMenuItem.Text = "Status Output";
+            this.msiShowStatus.Name = "msiShowStatus";
+            this.msiShowStatus.Size = new System.Drawing.Size(180, 22);
+            this.msiShowStatus.Text = "Status Output";
+            this.msiShowStatus.Click += new System.EventHandler(this.MsiShowStatus_Click);
             // 
             // buildBToolStripMenuItem
             // 
@@ -120,7 +121,7 @@
             // msiRun
             // 
             this.msiRun.Name = "msiRun";
-            this.msiRun.Size = new System.Drawing.Size(180, 22);
+            this.msiRun.Size = new System.Drawing.Size(110, 22);
             this.msiRun.Text = "Run(&R)";
             this.msiRun.Click += new System.EventHandler(this.MsiRun_Click);
             // 
@@ -178,7 +179,7 @@
         private System.Windows.Forms.ToolStripMenuItem msiDeleteAllFiles;
         private System.Windows.Forms.ToolStripMenuItem viewVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem msiShowInputFileList;
-        private System.Windows.Forms.ToolStripMenuItem statusOutputToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem msiShowStatus;
         private System.Windows.Forms.ToolStripMenuItem buildBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem msiRun;
     }

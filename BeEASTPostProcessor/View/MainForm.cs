@@ -16,17 +16,22 @@ namespace BeEASTPostProcessor.View
     public partial class MainForm : Form
     {
         private FileExplorerForm frmFileExplorer;
+        private StatusOutputForm frmStatus;
 
         public MainForm()
         {
             InitializeComponent();
 
             this.frmFileExplorer = new FileExplorerForm();
+            this.frmStatus = StatusOutputForm.GetFrmStatus;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.frmFileExplorer.Show(this.dockPnlMain, DockState.DockLeft);
+            this.frmStatus.Show(this.dockPnlMain, DockState.DockBottom);
+
+            this.dockPnlMain.UpdateDockWindowZOrder(DockStyle.Left, true);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -63,6 +68,11 @@ namespace BeEASTPostProcessor.View
         private void MsiShowInputFileList_Click(object sender, EventArgs e)
         {
             this.frmFileExplorer.Show(this.dockPnlMain, DockState.DockLeft);
+        }
+
+        private void MsiShowStatus_Click(object sender, EventArgs e)
+        {
+            this.frmStatus.Show(this.dockPnlMain, DockState.DockBottom);
         }
 
         private async void MsiRun_Click(object sender, EventArgs e)
