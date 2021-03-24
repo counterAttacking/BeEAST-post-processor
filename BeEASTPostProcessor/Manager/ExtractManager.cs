@@ -14,6 +14,7 @@ namespace BeEASTPostProcessor.Manager
         private TxtFileOpenService txtFileOpenService;
         private TxtFileReadService txtFileReadService;
         private SectionDataManager sectionManager;
+        private string[] deathBinary;
 
         public ExtractManager()
         {
@@ -39,6 +40,14 @@ namespace BeEASTPostProcessor.Manager
                 {
                     this.txtFileReadService = new TxtFileReadService(txtFiles[i], i);
                     this.txtFileReadService.Read();
+                }
+
+                var deathBinaryCreateService = new DeathBinaryCreateService();
+                deathBinaryCreateService.Generate();
+                this.deathBinary = (string[])deathBinaryCreateService.GetDeathBinary();
+                if (this.deathBinary == null || this.deathBinary.Length <= 0)
+                {
+                    return;
                 }
             });
         }
