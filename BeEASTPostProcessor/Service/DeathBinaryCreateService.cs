@@ -26,6 +26,7 @@ namespace BeEASTPostProcessor.Service
             {
                 var zeroCnt = 9 - str[i].Length;
                 var tmp = new StringBuilder();
+                tmp.Append("@@UX_0");
                 for (var j = 0; j < zeroCnt; j++)
                 {
                     tmp.Append("0");

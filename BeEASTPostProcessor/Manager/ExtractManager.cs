@@ -49,6 +49,9 @@ namespace BeEASTPostProcessor.Manager
                 {
                     return;
                 }
+
+                var refineProcessService = new RefineDataProcessService(this.deathBinary);
+                refineProcessService.RefineProcess();
             });
         }
     }

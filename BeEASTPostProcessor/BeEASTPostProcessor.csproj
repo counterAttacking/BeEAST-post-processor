@@ -78,15 +78,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Manager\ExtractManager.cs" />
+    <Compile Include="Manager\RefineDataManager.cs" />
     <Compile Include="Manager\SectionDataManager.cs" />
     <Compile Include="Model\MData.cs" />
     <Compile Include="Model\RawData.cs" />
+    <Compile Include="Model\RefineData.cs" />
     <Compile Include="Model\SectionData.cs" />
     <Compile Include="Model\TxtFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\DeathBinaryCreateService.cs" />
     <Compile Include="Service\LogFileWriteService.cs" />
+    <Compile Include="Service\RefineDataProcessService.cs" />
     <Compile Include="Service\TxtFileOpenService.cs" />
     <Compile Include="Service\TxtFileReadService.cs" />
     <Compile Include="View\FileExplorerForm.cs">
