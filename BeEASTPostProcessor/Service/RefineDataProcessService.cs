@@ -38,6 +38,7 @@ namespace BeEASTPostProcessor.Service
             {
                 this.refines[i] = new RefineData()
                 {
+                    name = this.sections[i].name,
                     deathBinary = this.deathBinary,
                     ccdp = new double[deathLength],
                     cdf = new double[deathLength],

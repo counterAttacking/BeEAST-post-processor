@@ -34,10 +34,11 @@ namespace BeEASTPostProcessor.Service
                 str.Append(",");
                 str.Append(",");
             }
+            str.Append("Total,,");
             str.AppendLine();
             // 각 구간의 CCDP, CDF 입력 ex) ,CCDP,CDF,CCDP,CDF,
             str.Append(",");
-            for (var i = 0; i < refineLength; i++)
+            for (var i = 0; i < refineLength + 1; i++)
             {
                 str.Append("CCDP,");
                 str.Append("CDF,");
@@ -52,15 +53,26 @@ namespace BeEASTPostProcessor.Service
                 var deathStr = this.deathBinary[i];
                 str.Append(deathStr);
                 str.Append(",");
+                double ccdpSum = 0.0;
+                double cdfSum = 0.0;
                 for (var j = 0; j < refineLength; j++)
                 {
-                    var ccdp = string.Format("{0:0.00E+00}", this.refines[j].ccdp[i]);
-                    var cdf = string.Format("{0:0.00E+00}", this.refines[j].cdf[i]);
+                    ccdpSum += this.refines[j].ccdp[i];
+                    cdfSum += this.refines[j].cdf[i];
+                    //var ccdp = string.Format("{0:0.00E+00}", this.refines[j].ccdp[i]);
+                    //var cdf = string.Format("{0:0.00E+00}", this.refines[j].cdf[i]);
+                    var ccdp = this.refines[j].ccdp[i].ToString();
+                    var cdf = this.refines[j].cdf[i].ToString();
                     str.Append(ccdp);
                     str.Append(",");
                     str.Append(cdf);
                     str.Append(",");
                 }
+                //str.Append(string.Format("{0:0.00E+00}", ccdpSum));
+                str.Append(ccdpSum.ToString());
+                str.Append(",");
+                //str.Append(string.Format("{0:0.00E+00}", cdfSum));
+                str.Append(cdfSum.ToString());
                 str.AppendLine();
             }
 

@@ -27,6 +27,7 @@ namespace BeEASTPostProcessor.Service
         {
             var isFoundFileOut = false;
             var isFoundTruth = false;
+            string sectionName = null;
             string mName = null;
             var raws = new List<RawData>();
             var ms = new List<MData>();
@@ -42,6 +43,7 @@ namespace BeEASTPostProcessor.Service
                         if (readLine.Contains(fileOutStr))
                         {
                             isFoundFileOut = true;
+                            sectionName = this.SetSectionName(readLine);
                             mName = readLine;
                         }
                         if (readLine.Equals(truthStr))
@@ -82,11 +84,17 @@ namespace BeEASTPostProcessor.Service
                 }
             }
 
-            //section.name =;
+            section.name = sectionName;
             section.ms = ms.ToArray();
 
             var sectionManager = SectionDataManager.GetSectionDataManager;
             sectionManager.sections[this.idx] = section;
+        }
+
+        private string SetSectionName(string input)
+        {
+            var str = input.Split('\\');
+            return str[1];
         }
     }
 }
