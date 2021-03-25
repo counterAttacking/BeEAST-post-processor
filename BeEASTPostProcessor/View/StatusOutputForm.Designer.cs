@@ -47,7 +47,7 @@
             this.txtStatus.CustomButton.Visible = false;
             this.txtStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtStatus.FontSize = MetroFramework.MetroTextBoxSize.Medium;
-            this.txtStatus.ForeColor = System.Drawing.Color.White;
+            this.txtStatus.ForeColor = System.Drawing.Color.Black;
             this.txtStatus.Lines = new string[0];
             this.txtStatus.Location = new System.Drawing.Point(0, 0);
             this.txtStatus.MaxLength = 32767;
@@ -62,7 +62,7 @@
             this.txtStatus.ShortcutsEnabled = true;
             this.txtStatus.Size = new System.Drawing.Size(800, 450);
             this.txtStatus.TabIndex = 1;
-            this.txtStatus.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtStatus.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtStatus.UseSelectable = true;
             this.txtStatus.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtStatus.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);

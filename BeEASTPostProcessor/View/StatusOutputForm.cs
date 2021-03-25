@@ -13,6 +13,24 @@ namespace BeEASTPostProcessor.View
 {
     public partial class StatusOutputForm : DockContent
     {
+        private string msg;
+
+        public string Msg
+        {
+            set
+            {
+                this.msg = value;
+                if (!String.IsNullOrEmpty(this.msg))
+                {
+                    this.PrintStatus();
+                }
+            }
+            get
+            {
+                return this.msg;
+            }
+        }
+
         private StatusOutputForm()
         {
             InitializeComponent();
@@ -34,9 +52,9 @@ namespace BeEASTPostProcessor.View
             e.Cancel = true;
         }
 
-        public void PrintStatus(StringBuilder msg)
+        private void PrintStatus()
         {
-            this.txtStatus.AppendText(msg.ToString());
+            this.txtStatus.AppendText(this.msg);
         }
     }
 }

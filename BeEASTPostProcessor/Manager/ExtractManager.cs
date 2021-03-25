@@ -1,5 +1,6 @@
 ﻿using BeEASTPostProcessor.Model;
 using BeEASTPostProcessor.Service;
+using BeEASTPostProcessor.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,11 @@ namespace BeEASTPostProcessor.Manager
         private TxtFileReadService txtFileReadService;
         private SectionDataManager sectionManager;
         private string[] deathBinary;
+        private StatusOutputForm frmStatus;
 
         public ExtractManager()
         {
-
+            this.frmStatus = StatusOutputForm.GetFrmStatus;
         }
 
         public async Task Run()
@@ -36,11 +38,22 @@ namespace BeEASTPostProcessor.Manager
                 this.sectionManager = SectionDataManager.GetSectionDataManager;
                 this.sectionManager.sections = new SectionData[txtFiles.Length];
 
+                var str = new StringBuilder();
                 for (var i = 0; i < txtFiles.Length; i++)
                 {
                     this.txtFileReadService = new TxtFileReadService(txtFiles[i], i);
                     this.txtFileReadService.Read();
+                    str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                    str.Append("Completed Read ");
+                    str.AppendLine(txtFiles[i].fullPath);
+                    this.frmStatus.Msg = str.ToString();
+                    str.Clear();
                 }
+
+                str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                str.AppendLine("Data Process is started");
+                this.frmStatus.Msg = str.ToString();
+                str.Clear();
 
                 var deathBinaryCreateService = new DeathBinaryCreateService();
                 deathBinaryCreateService.Generate();
@@ -53,8 +66,20 @@ namespace BeEASTPostProcessor.Manager
                 var refineProcessService = new RefineDataProcessService(this.deathBinary);
                 refineProcessService.RefineProcess();
 
+                str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                str.AppendLine("Data Process is completed");
+                this.frmStatus.Msg = str.ToString();
+                str.Clear();
+
                 var fileWriteService = new CsvFileWriteService(this.deathBinary);
-                fileWriteService.WriteFile();
+                var isFinished = fileWriteService.WriteFile();
+
+                if (isFinished)
+                {
+                    str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                    str.AppendLine("Earthquake Result.csv is created");
+                    this.frmStatus.Msg = str.ToString();
+                }
             });
         }
     }
