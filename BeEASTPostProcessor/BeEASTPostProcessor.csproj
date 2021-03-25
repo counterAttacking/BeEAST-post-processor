@@ -87,6 +87,7 @@
     <Compile Include="Model\TxtFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CsvFileWriteService.cs" />
     <Compile Include="Service\DeathBinaryCreateService.cs" />
     <Compile Include="Service\LogFileWriteService.cs" />
     <Compile Include="Service\RefineDataProcessService.cs" />

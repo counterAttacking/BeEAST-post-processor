@@ -52,6 +52,9 @@ namespace BeEASTPostProcessor.Manager
 
                 var refineProcessService = new RefineDataProcessService(this.deathBinary);
                 refineProcessService.RefineProcess();
+
+                var fileWriteService = new CsvFileWriteService(this.deathBinary);
+                fileWriteService.WriteFile();
             });
         }
     }
