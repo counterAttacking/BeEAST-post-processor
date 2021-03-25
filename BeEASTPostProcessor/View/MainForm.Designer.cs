@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msiOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,14 +100,14 @@
             // msiShowInputFileList
             // 
             this.msiShowInputFileList.Name = "msiShowInputFileList";
-            this.msiShowInputFileList.Size = new System.Drawing.Size(180, 22);
+            this.msiShowInputFileList.Size = new System.Drawing.Size(149, 22);
             this.msiShowInputFileList.Text = "Input File List";
             this.msiShowInputFileList.Click += new System.EventHandler(this.MsiShowInputFileList_Click);
             // 
             // msiShowStatus
             // 
             this.msiShowStatus.Name = "msiShowStatus";
-            this.msiShowStatus.Size = new System.Drawing.Size(180, 22);
+            this.msiShowStatus.Size = new System.Drawing.Size(149, 22);
             this.msiShowStatus.Text = "Status Output";
             this.msiShowStatus.Click += new System.EventHandler(this.MsiShowStatus_Click);
             // 
@@ -153,6 +154,7 @@
             this.Controls.Add(this.dockPnlMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
