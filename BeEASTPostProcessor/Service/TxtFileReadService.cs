@@ -16,11 +16,13 @@ namespace BeEASTPostProcessor.Service
         private static readonly string truthStr = "TRUTH TABLE CCDP CDF";
         private static readonly string equalStr = "=";
         private int idx;
+        private string[] earthquakeSection;
 
         public TxtFileReadService(TxtFile file, int idx)
         {
             this.file = file;
             this.idx = idx;
+            this.SetEarthquakeSection();
         }
 
         public void Read()
@@ -93,8 +95,34 @@ namespace BeEASTPostProcessor.Service
 
         private string SetSectionName(string input)
         {
-            var str = input.Split('\\');
-            return str[1];
+            string name = null;
+            for (var i = 0; i < this.earthquakeSection.Length; i++)
+            {
+                if (input.Contains(this.earthquakeSection[i]))
+                {
+                    name = this.earthquakeSection[i];
+                }
+            }
+
+            return name;
+        }
+
+        private void SetEarthquakeSection()
+        {
+            var sections = new List<string>
+            {
+                "S015",
+                "S025",
+                "S035",
+                "S045",
+                "S055",
+                "S065",
+                "S075",
+                "S085",
+                "S095"
+            };
+
+            this.earthquakeSection = sections.ToArray();
         }
     }
 }
