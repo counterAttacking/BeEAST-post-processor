@@ -17,10 +17,12 @@ namespace BeEASTPostProcessor.Manager
         private SectionDataManager sectionManager;
         private string[] deathBinary;
         private StatusOutputForm frmStatus;
+        private DeathBinaryManager deathBinaryManager;
 
         public ExtractManager()
         {
             this.frmStatus = StatusOutputForm.GetFrmStatus;
+            this.deathBinaryManager = DeathBinaryManager.GetDeathBinaryManager;
         }
 
         public async Task Run()
@@ -62,6 +64,8 @@ namespace BeEASTPostProcessor.Manager
                 {
                     return;
                 }
+
+                this.deathBinaryManager.SetDeathBinary(this.deathBinary.Clone());
 
                 var refineProcessService = new RefineDataProcessService(this.deathBinary);
                 refineProcessService.RefineProcess();

@@ -89,6 +89,21 @@ namespace BeEASTPostProcessor.View
             str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
             str.AppendLine("Running is completed");
             this.frmStatus.Msg = str.ToString();
+
+            try
+            {
+                var frmResult = new ResultForm()
+                {
+                    TabText = "Result",
+                };
+                frmResult.Show(this.dockPnlMain, DockState.Document);
+                frmResult.PrintResult();
+            }
+            catch (Exception ex)
+            {
+                var logWrite = new LogFileWriteService(ex);
+                logWrite.MakeLogFile();
+            }
         }
     }
 }
