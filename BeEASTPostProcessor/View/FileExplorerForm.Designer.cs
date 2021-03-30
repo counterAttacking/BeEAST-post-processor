@@ -41,6 +41,7 @@
             this.tvwFiles.Name = "tvwFiles";
             this.tvwFiles.Size = new System.Drawing.Size(800, 450);
             this.tvwFiles.TabIndex = 1;
+            this.tvwFiles.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TvwFiles_NodeMouseDoubleClick);
             this.tvwFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.TvwFiles_DragDrop);
             this.tvwFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.TvwFiles_DragEnter);
             // 

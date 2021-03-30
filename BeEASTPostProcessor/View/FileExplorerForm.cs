@@ -16,12 +16,14 @@ namespace BeEASTPostProcessor.View
     public partial class FileExplorerForm : DockContent
     {
         private TxtFileOpenService openService;
+        private MainForm frmMain;
 
-        public FileExplorerForm()
+        public FileExplorerForm(MainForm frmMain)
         {
             InitializeComponent();
 
             this.openService = TxtFileOpenService.GetOpenService;
+            this.frmMain = frmMain;
         }
 
         private void FileExplorerForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -43,7 +45,7 @@ namespace BeEASTPostProcessor.View
             var fileNode = new TreeNode(stringBuilder.ToString());
             for (var i = 0; i < files.Length; i++)
             {
-                fileNode.Nodes.Add(files[i].path, files[i].name);
+                fileNode.Nodes.Add(files[i].fullPath, files[i].name);
             }
             this.tvwFiles.Nodes.Add(fileNode);
         }
@@ -67,6 +69,25 @@ namespace BeEASTPostProcessor.View
             Array.Sort(files);
             this.openService.OpenFiles(files);
             this.OpenFiles(this.openService.GetFiles());
+        }
+
+        private void TvwFiles_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (this.tvwFiles.SelectedNode.Parent == null) // SelectedNode is Parent
+            {
+                return;
+            }
+            else // SelectedNode is child
+            {
+                try
+                {
+                    this.frmMain.ShowSelectedFile(e.Node.Name);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
         }
     }
 }

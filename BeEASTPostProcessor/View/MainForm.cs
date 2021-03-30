@@ -23,7 +23,7 @@ namespace BeEASTPostProcessor.View
         {
             InitializeComponent();
 
-            this.frmFileExplorer = new FileExplorerForm();
+            this.frmFileExplorer = new FileExplorerForm(this);
             this.frmStatus = StatusOutputForm.GetFrmStatus;
             this.refineDataManager = RefineDataManager.GetDataManager;
         }
@@ -140,6 +140,13 @@ namespace BeEASTPostProcessor.View
                 var logWrite = new LogFileWriteService(ex);
                 logWrite.MakeLogFile();
             }
+        }
+
+        public void ShowSelectedFile(string selectedFile)
+        {
+            var frmTextViewer = new TextViewerForm(selectedFile);
+            frmTextViewer.Show(this.dockPnlMain, DockState.Document);
+            frmTextViewer.Print();
         }
     }
 }
