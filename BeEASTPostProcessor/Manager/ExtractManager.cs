@@ -29,60 +29,68 @@ namespace BeEASTPostProcessor.Manager
         {
             await Task.Run(() =>
             {
-                this.txtFileOpenService = TxtFileOpenService.GetOpenService;
-                var txtFiles = (TxtFile[])this.txtFileOpenService.GetFiles();
-                if (txtFiles == null || txtFiles.Length <= 0)
+                try
                 {
-                    MessageBox.Show("There is no txt file", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+                    this.txtFileOpenService = TxtFileOpenService.GetOpenService;
+                    var txtFiles = (TxtFile[])this.txtFileOpenService.GetFiles();
+                    if (txtFiles == null || txtFiles.Length <= 0)
+                    {
+                        MessageBox.Show("There is no txt file", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
 
-                this.sectionManager = SectionDataManager.GetSectionDataManager;
-                this.sectionManager.sections = new SectionData[txtFiles.Length];
+                    this.sectionManager = SectionDataManager.GetSectionDataManager;
+                    this.sectionManager.sections = new SectionData[txtFiles.Length];
 
-                var str = new StringBuilder();
-                for (var i = 0; i < txtFiles.Length; i++)
-                {
-                    this.txtFileReadService = new TxtFileReadService(txtFiles[i], i);
-                    this.txtFileReadService.Read();
+                    var str = new StringBuilder();
+                    for (var i = 0; i < txtFiles.Length; i++)
+                    {
+                        this.txtFileReadService = new TxtFileReadService(txtFiles[i], i);
+                        this.txtFileReadService.Read();
+                        str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                        str.Append("Completed Read ");
+                        str.AppendLine(txtFiles[i].fullPath);
+                        this.frmStatus.Msg = str.ToString();
+                        str.Clear();
+                    }
+
                     str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
-                    str.Append("Completed Read ");
-                    str.AppendLine(txtFiles[i].fullPath);
+                    str.AppendLine("Data Process is started");
                     this.frmStatus.Msg = str.ToString();
                     str.Clear();
-                }
 
-                str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
-                str.AppendLine("Data Process is started");
-                this.frmStatus.Msg = str.ToString();
-                str.Clear();
+                    var deathBinaryCreateService = new DeathBinaryCreateService();
+                    deathBinaryCreateService.Generate();
+                    this.deathBinary = (string[])deathBinaryCreateService.GetDeathBinary();
+                    if (this.deathBinary == null || this.deathBinary.Length <= 0)
+                    {
+                        return;
+                    }
 
-                var deathBinaryCreateService = new DeathBinaryCreateService();
-                deathBinaryCreateService.Generate();
-                this.deathBinary = (string[])deathBinaryCreateService.GetDeathBinary();
-                if (this.deathBinary == null || this.deathBinary.Length <= 0)
-                {
-                    return;
-                }
+                    this.deathBinaryManager.SetDeathBinary(this.deathBinary.Clone());
 
-                this.deathBinaryManager.SetDeathBinary(this.deathBinary.Clone());
+                    var refineProcessService = new RefineDataProcessService(this.deathBinary);
+                    refineProcessService.RefineProcess();
 
-                var refineProcessService = new RefineDataProcessService(this.deathBinary);
-                refineProcessService.RefineProcess();
-
-                str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
-                str.AppendLine("Data Process is completed");
-                this.frmStatus.Msg = str.ToString();
-                str.Clear();
-
-                var fileWriteService = new CsvFileWriteService(this.deathBinary);
-                var isFinished = fileWriteService.WriteFile();
-
-                if (isFinished)
-                {
                     str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
-                    str.AppendLine("Earthquake Result.csv is created");
+                    str.AppendLine("Data Process is completed");
                     this.frmStatus.Msg = str.ToString();
+                    str.Clear();
+
+                    var fileWriteService = new CsvFileWriteService(this.deathBinary);
+                    var isFinished = fileWriteService.WriteFile();
+
+                    if (isFinished)
+                    {
+                        str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                        str.AppendLine("Earthquake Result.csv is created");
+                        this.frmStatus.Msg = str.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var logWrite = new LogFileWriteService(ex);
+                    logWrite.MakeLogFile();
                 }
             });
         }

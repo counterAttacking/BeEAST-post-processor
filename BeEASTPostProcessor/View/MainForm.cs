@@ -45,7 +45,7 @@ namespace BeEASTPostProcessor.View
         {
             var ofd = new OpenFileDialog
             {
-                Filter = "TXT File (*.txt, *.TXT)|*.txt;*.TXT",
+                Filter = "TXT File (*.txt)|*.txt",
                 Multiselect = true,
             };
             if (ofd.ShowDialog() == DialogResult.Cancel)
@@ -101,21 +101,33 @@ namespace BeEASTPostProcessor.View
 
         private async void MsiRun_Click(object sender, EventArgs e)
         {
-            var str = new StringBuilder();
-            str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
-            str.AppendLine("Running is started");
-            this.frmStatus.Msg = str.ToString();
+            try
+            {
+                var str = new StringBuilder();
+                str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                str.AppendLine("Running is started");
+                this.frmStatus.Msg = str.ToString();
 
-            var manager = new ExtractManager();
-            await manager.Run();
+                var manager = new ExtractManager();
+                await manager.Run();
 
-            str.Clear();
-            str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
-            str.AppendLine("Running is completed");
-            this.frmStatus.Msg = str.ToString();
+                str.Clear();
+                str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                str.AppendLine("Running is completed");
+                this.frmStatus.Msg = str.ToString();
+            }
+            catch (Exception ex)
+            {
+                var logWrite = new LogFileWriteService(ex);
+                logWrite.MakeLogFile();
+            }
 
             try
             {
+                if (this.refineDataManager.GetRefineData() == null)
+                {
+                    return;
+                }
                 var frmResult = new ResultForm()
                 {
                     TabText = "Result",
