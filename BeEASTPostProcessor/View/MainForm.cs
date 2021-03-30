@@ -132,10 +132,14 @@ namespace BeEASTPostProcessor.View
                 }
 
                 string savePath = null;
-                var fbd = new VistaFolderBrowserDialog();
-                if (fbd.ShowDialog() == DialogResult.OK)
+                var sfd = new SaveFileDialog()
                 {
-                    savePath = fbd.SelectedPath;
+                    Filter = "CSV (comma-separated values)|*.csv",
+                    OverwritePrompt = true,
+                };
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    savePath = sfd.FileName;
                 }
 
                 var fileWriteService = new CsvFileWriteService(savePath);
@@ -143,7 +147,15 @@ namespace BeEASTPostProcessor.View
 
                 var str = new StringBuilder();
                 str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
-                str.AppendLine("Earthquake Result.csv is created");
+                if (!string.IsNullOrEmpty(savePath))
+                {
+                    str.Append(savePath);
+                    str.AppendLine(" is created");
+                }
+                else
+                {
+                    str.AppendLine("Earthquake Result.csv is created");
+                }
                 this.frmStatus.Msg = str.ToString();
 
                 var frmResult = new ResultForm()

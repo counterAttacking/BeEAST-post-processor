@@ -79,8 +79,7 @@ namespace BeEASTPostProcessor.Service
 
                 if (!string.IsNullOrEmpty(this.saveDirPath))
                 {
-                    var combinedPath = Path.Combine(this.saveDirPath, "Earthquake Result.csv");
-                    File.WriteAllText(combinedPath, str.ToString());
+                    File.WriteAllText(this.saveDirPath, str.ToString());
                 }
                 else
                 {
