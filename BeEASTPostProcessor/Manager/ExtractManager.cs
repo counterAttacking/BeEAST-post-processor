@@ -3,6 +3,7 @@ using BeEASTPostProcessor.Service;
 using BeEASTPostProcessor.View;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,16 +77,6 @@ namespace BeEASTPostProcessor.Manager
                     str.AppendLine("Data Process is completed");
                     this.frmStatus.Msg = str.ToString();
                     str.Clear();
-
-                    var fileWriteService = new CsvFileWriteService(this.deathBinary);
-                    var isFinished = fileWriteService.WriteFile();
-
-                    if (isFinished)
-                    {
-                        str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
-                        str.AppendLine("Earthquake Result.csv is created");
-                        this.frmStatus.Msg = str.ToString();
-                    }
                 }
                 catch (Exception ex)
                 {

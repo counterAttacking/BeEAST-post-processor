@@ -14,16 +14,16 @@ namespace BeEASTPostProcessor.Service
     {
         private RefineData[] refines;
         private string[] deathBinary;
-        private bool isFinished;
+        private string saveDirPath;
 
-        public CsvFileWriteService(string[] deathBinary)
+        public CsvFileWriteService(string saveDirPath)
         {
             this.refines = (RefineData[])RefineDataManager.GetDataManager.GetRefineData();
-            this.deathBinary = deathBinary;
-            this.isFinished = false;
+            this.deathBinary = (string[])DeathBinaryManager.GetDeathBinaryManager.GetDeathBinary();
+            this.saveDirPath = saveDirPath;
         }
 
-        public bool WriteFile()
+        public void WriteFile()
         {
             try
             {
@@ -64,8 +64,6 @@ namespace BeEASTPostProcessor.Service
                     {
                         ccdpSum += this.refines[j].ccdp[i];
                         cdfSum += this.refines[j].cdf[i];
-                        //var ccdp = string.Format("{0:0.00E+00}", this.refines[j].ccdp[i]);
-                        //var cdf = string.Format("{0:0.00E+00}", this.refines[j].cdf[i]);
                         var ccdp = this.refines[j].ccdp[i].ToString();
                         var cdf = this.refines[j].cdf[i].ToString();
                         str.Append(ccdp);
@@ -73,27 +71,28 @@ namespace BeEASTPostProcessor.Service
                         str.Append(cdf);
                         str.Append(",");
                     }
-                    //str.Append(string.Format("{0:0.00E+00}", ccdpSum));
                     str.Append(ccdpSum.ToString());
                     str.Append(",");
-                    //str.Append(string.Format("{0:0.00E+00}", cdfSum));
                     str.Append(cdfSum.ToString());
                     str.AppendLine();
                 }
 
-                File.WriteAllText("Earthquake Result.csv", str.ToString());
-                this.isFinished = true;
+                if (!string.IsNullOrEmpty(this.saveDirPath))
+                {
+                    var combinedPath = Path.Combine(this.saveDirPath, "Earthquake Result.csv");
+                    File.WriteAllText(combinedPath, str.ToString());
+                }
+                else
+                {
+                    File.WriteAllText("Earthquake Result.csv", str.ToString());
+                }
             }
             catch (Exception e)
             {
                 var logWrite = new LogFileWriteService(e);
                 logWrite.MakeLogFile();
                 MessageBox.Show("Can not make Earthquake Result.csv", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.isFinished = false;
-                return this.isFinished;
             }
-
-            return this.isFinished;
         }
     }
 }

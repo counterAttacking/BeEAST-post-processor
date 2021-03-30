@@ -1,5 +1,6 @@
 ﻿using BeEASTPostProcessor.Manager;
 using BeEASTPostProcessor.Service;
+using Ookii.Dialogs.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,7 +47,7 @@ namespace BeEASTPostProcessor.View
         {
             var ofd = new OpenFileDialog
             {
-                Filter = "TXT File (*.txt)|*.txt",
+                Filter = "txt files (*.txt)|*.txt",
                 Multiselect = true,
             };
             if (ofd.ShowDialog() == DialogResult.Cancel)
@@ -129,6 +130,22 @@ namespace BeEASTPostProcessor.View
                 {
                     return;
                 }
+
+                string savePath = null;
+                var fbd = new VistaFolderBrowserDialog();
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    savePath = fbd.SelectedPath;
+                }
+
+                var fileWriteService = new CsvFileWriteService(savePath);
+                fileWriteService.WriteFile();
+
+                var str = new StringBuilder();
+                str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));
+                str.AppendLine("Earthquake Result.csv is created");
+                this.frmStatus.Msg = str.ToString();
+
                 var frmResult = new ResultForm()
                 {
                     TabText = "Result",
