@@ -17,6 +17,7 @@ namespace BeEASTPostProcessor.View
     {
         private FileExplorerForm frmFileExplorer;
         private StatusOutputForm frmStatus;
+        private RefineDataManager refineDataManager;
 
         public MainForm()
         {
@@ -24,6 +25,7 @@ namespace BeEASTPostProcessor.View
 
             this.frmFileExplorer = new FileExplorerForm();
             this.frmStatus = StatusOutputForm.GetFrmStatus;
+            this.refineDataManager = RefineDataManager.GetDataManager;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -73,6 +75,28 @@ namespace BeEASTPostProcessor.View
         private void MsiShowStatus_Click(object sender, EventArgs e)
         {
             this.frmStatus.Show(this.dockPnlMain, DockState.DockBottom);
+        }
+
+        private void MsiShowResult_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.refineDataManager.GetRefineData() == null)
+                {
+                    return;
+                }
+                var frmResult = new ResultForm()
+                {
+                    TabText = "Result",
+                };
+                frmResult.Show(this.dockPnlMain, DockState.Document);
+                frmResult.PrintResult();
+            }
+            catch (Exception ex)
+            {
+                var logWrite = new LogFileWriteService(ex);
+                logWrite.MakeLogFile();
+            }
         }
 
         private async void MsiRun_Click(object sender, EventArgs e)
