@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -144,7 +145,10 @@ namespace BeEASTPostProcessor.View
 
         public void ShowSelectedFile(string selectedFile)
         {
-            var frmTextViewer = new TextViewerForm(selectedFile);
+            var frmTextViewer = new TextViewerForm(selectedFile)
+            {
+                TabText = Path.GetFileName(selectedFile),
+            };
             frmTextViewer.Show(this.dockPnlMain, DockState.Document);
             frmTextViewer.Print();
         }

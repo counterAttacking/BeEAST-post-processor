@@ -11,11 +11,11 @@ namespace BeEASTPostProcessor.Service
 {
     public class TxtFileOpenService
     {
-        private TxtFile[] files;
+        private List<TxtFile> files;
 
         private TxtFileOpenService()
         {
-
+            this.files = new List<TxtFile>();
         }
 
         private static readonly Lazy<TxtFileOpenService> openService = new Lazy<TxtFileOpenService>(() => new TxtFileOpenService());
@@ -30,45 +30,38 @@ namespace BeEASTPostProcessor.Service
 
         public object GetFiles()
         {
-            if (this.files == null || this.files.Length == 0)
+            if (this.files == null || this.files.Count == 0)
             {
                 return null;
             }
             else
             {
-                return this.files.Clone();
+                return this.files.ToArray().Clone();
             }
         }
 
         public void OpenFiles(string[] inputFiles)
         {
-            var files = new List<TxtFile>();
             try
             {
-                /*
-                 * 기존에 불러온 파일이 존재한다면
-                 * 기존에 존재하던 파일에
-                 * 추가적으로 불러올 파일도 같이 저장하기 위하여
-                 */
-                if (this.files != null && this.files.Length > 0)
-                {
-                    files = this.files.ToList();
-                }
-
                 for (var i = 0; i < inputFiles.Length; i++)
                 {
-                    var file = this.DivideFilePath(inputFiles[i]);
-                    files.Add(file);
+                    var fileAttribute = File.GetAttributes(inputFiles[i]);
+                    if ((fileAttribute & FileAttributes.Directory) == FileAttributes.Directory)
+                    {
+                        this.CheckDirectory(inputFiles[i]);
+                    }
+                    else
+                    {
+                        var file = this.DivideFilePath(inputFiles[i]);
+                        this.files.Add(file);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 var logWrite = new LogFileWriteService(ex);
                 logWrite.MakeLogFile();
-            }
-            finally
-            {
-                this.files = files.ToArray();
             }
         }
 
@@ -90,7 +83,25 @@ namespace BeEASTPostProcessor.Service
                 return;
             }
 
-            this.files = null;
+            this.files = new List<TxtFile>();
+        }
+
+        private void CheckDirectory(string path)
+        {
+            var directories = Directory.GetDirectories(path);
+            var files = Directory.GetFiles(path);
+            foreach (var file in files)
+            {
+                var txtFile = this.DivideFilePath(file);
+                this.files.Add(txtFile);
+            }
+            if (directories.Length > 0)
+            {
+                foreach (var directory in directories)
+                {
+                    this.CheckDirectory(directory);
+                }
+            }
         }
     }
 }
