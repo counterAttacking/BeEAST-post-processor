@@ -56,6 +56,7 @@ namespace BeEASTPostProcessor.Service
                         if (isFoundFileOut == true && isFoundTruth == true)
                         {
                             var str = readLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
                             if (!str[0].Equals(equalStr))
                             {
                                 var rawData = new RawData
@@ -67,6 +68,7 @@ namespace BeEASTPostProcessor.Service
                                     deathBinary = str[4],
                                 };
                                 raws.Add(rawData);
+                                DeathBinaryManager.GetDeathBinaryManager.tmpDeathBinary.Add(str[4]);
                             }
                             else
                             {

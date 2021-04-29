@@ -14,9 +14,9 @@ namespace BeEASTPostProcessor.Service
         private RefineData[] refines;
         private string[] deathBinary;
 
-        public RefineDataProcessService(string[] deathBinary)
+        public RefineDataProcessService()
         {
-            this.deathBinary = deathBinary;
+            this.deathBinary = (string[])DeathBinaryManager.GetDeathBinaryManager.GetDeathBinary();
             this.sections = SectionDataManager.GetSectionDataManager.sections;
             this.refines = new RefineData[this.sections.Length];
         }

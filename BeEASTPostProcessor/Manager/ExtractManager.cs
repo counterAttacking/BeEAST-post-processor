@@ -68,9 +68,10 @@ namespace BeEASTPostProcessor.Manager
                         return;
                     }
 
+                    this.deathBinaryManager.CleanDeathBinary();
                     this.deathBinaryManager.SetDeathBinary(this.deathBinary.Clone());
 
-                    var refineProcessService = new RefineDataProcessService(this.deathBinary);
+                    var refineProcessService = new RefineDataProcessService();
                     refineProcessService.RefineProcess();
 
                     str.Append(DateTime.Now.ToString("[yyyy-MM-dd-HH:mm:ss]   "));

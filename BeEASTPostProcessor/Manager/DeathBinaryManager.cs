@@ -9,10 +9,11 @@ namespace BeEASTPostProcessor.Manager
     public class DeathBinaryManager
     {
         private string[] deathBinary;
+        public List<string> tmpDeathBinary;
 
         private DeathBinaryManager()
         {
-
+            this.tmpDeathBinary = new List<string>();
         }
 
         private static readonly Lazy<DeathBinaryManager> deathBinaryManager = new Lazy<DeathBinaryManager>(() => new DeathBinaryManager());
@@ -38,8 +39,15 @@ namespace BeEASTPostProcessor.Manager
             }
             else
             {
+                this.deathBinary = this.tmpDeathBinary.ToArray();
                 return this.deathBinary.Clone();
             }
+        }
+
+        public void CleanDeathBinary()
+        {
+            this.tmpDeathBinary = this.tmpDeathBinary.Distinct().ToList();
+            this.tmpDeathBinary.Sort();
         }
     }
 }
