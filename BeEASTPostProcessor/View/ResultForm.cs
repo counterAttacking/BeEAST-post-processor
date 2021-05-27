@@ -47,15 +47,18 @@ namespace BeEASTPostProcessor.View
         public void PrintResult()
         {
             var rowSize = this.deathBinary.Length;
+            var colSize = this.refines.Length;
+            var values = new List<string>();
+
             for (var i = 0; i < rowSize; i++)
             {
                 this.dgvResults.Rows.Add();
-                var values = new List<string>();
-                double ccdpSum = 0.0;
-                double cdfSum = 0.0;
+                values = new List<string>();
+                var ccdpSum = 0.0;
+                var cdfSum = 0.0;
                 values.Add((i + 1).ToString());
                 values.Add(this.deathBinary[i]);
-                for (var j = 0; j < this.refines.Length; j++)
+                for (var j = 0; j < colSize; j++)
                 {
                     ccdpSum += this.refines[j].ccdp[i];
                     cdfSum += this.refines[j].cdf[i];
@@ -69,6 +72,36 @@ namespace BeEASTPostProcessor.View
                 {
                     this.dgvResults[j, i].Value = values[j];
                 }
+            }
+
+            // 마지막 줄에 각 열들의 총 합을 계산하여 화면에 출력
+            values = new List<string>();
+            var totCCDP = 0.0;
+            var totCDF = 0.0;
+
+            values.Add((rowSize + 1).ToString());
+            values.Add("=");
+            for (var i = 0; i < colSize; i++)
+            {
+                var ccdpSum = 0.0;
+                var cdfSum = 0.0;
+                for (var j = 0; j < rowSize; j++)
+                {
+                    ccdpSum += this.refines[i].ccdp[j];
+                    cdfSum += this.refines[i].cdf[j];
+                }
+                totCCDP += ccdpSum;
+                totCDF += cdfSum;
+                values.Add(ccdpSum.ToString());
+                values.Add(cdfSum.ToString());
+            }
+            values.Add(totCCDP.ToString());
+            values.Add(totCDF.ToString());
+
+            this.dgvResults.Rows.Add();
+            for (var i = 0; i < values.Count; i++)
+            {
+                this.dgvResults[i, rowSize].Value = values[i];
             }
         }
     }

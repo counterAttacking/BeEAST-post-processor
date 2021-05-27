@@ -58,8 +58,8 @@ namespace BeEASTPostProcessor.Service
                     var deathStr = this.deathBinary[i];
                     str.Append(deathStr);
                     str.Append(",");
-                    double ccdpSum = 0.0;
-                    double cdfSum = 0.0;
+                    var ccdpSum = 0.0;
+                    var cdfSum = 0.0;
                     for (var j = 0; j < refineLength; j++)
                     {
                         ccdpSum += this.refines[j].ccdp[i];
@@ -76,6 +76,31 @@ namespace BeEASTPostProcessor.Service
                     str.Append(cdfSum.ToString());
                     str.AppendLine();
                 }
+
+                // 마지막 줄에 각 열들의 총 합을 계산하여 파일에 출력
+                var totCCDP = 0.0;
+                var totCDF = 0.0;
+
+                str.Append("=,");
+                for (var i = 0; i < refineLength; i++)
+                {
+                    var ccdpSum = 0.0;
+                    var cdfSum = 0.0;
+                    for (var j = 0; j < deathLength; j++)
+                    {
+                        ccdpSum += this.refines[i].ccdp[j];
+                        cdfSum += this.refines[i].cdf[j];
+                    }
+                    totCCDP += ccdpSum;
+                    totCDF += cdfSum;
+                    str.Append(ccdpSum.ToString());
+                    str.Append(",");
+                    str.Append(cdfSum.ToString());
+                    str.Append(",");
+                }
+                str.Append(totCCDP.ToString());
+                str.Append(",");
+                str.Append(totCDF.ToString());
 
                 if (!string.IsNullOrEmpty(this.saveDirPath))
                 {
