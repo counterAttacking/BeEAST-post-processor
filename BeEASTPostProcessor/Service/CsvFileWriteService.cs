@@ -108,7 +108,7 @@ namespace BeEASTPostProcessor.Service
                 }
                 else
                 {
-                    File.WriteAllText("Earthquake Result.csv", str.ToString());
+                    File.WriteAllText("Result.csv", str.ToString());
                 }
             }
             catch (Exception e)
