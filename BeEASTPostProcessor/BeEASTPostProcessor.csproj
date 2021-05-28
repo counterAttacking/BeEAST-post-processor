@@ -114,6 +114,12 @@
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\ModeSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ModeSelectForm.Designer.cs">
+      <DependentUpon>ModeSelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ResultForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ModeSelectForm.resx">
+      <DependentUpon>ModeSelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ResultForm.resx">
       <DependentUpon>ResultForm.cs</DependentUpon>

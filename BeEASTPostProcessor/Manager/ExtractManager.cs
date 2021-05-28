@@ -19,11 +19,15 @@ namespace BeEASTPostProcessor.Manager
         private string[] deathBinary;
         private StatusOutputForm frmStatus;
         private DeathBinaryManager deathBinaryManager;
+        private bool isCheckedLevel1;
+        private bool isCheckedLevel2;
 
-        public ExtractManager()
+        public ExtractManager(bool isCheckedLevel1, bool isCheckedLevel2)
         {
             this.frmStatus = StatusOutputForm.GetFrmStatus;
             this.deathBinaryManager = DeathBinaryManager.GetDeathBinaryManager;
+            this.isCheckedLevel1 = isCheckedLevel1;
+            this.isCheckedLevel2 = isCheckedLevel2;
         }
 
         public async Task Run()
@@ -60,16 +64,21 @@ namespace BeEASTPostProcessor.Manager
                     this.frmStatus.Msg = str.ToString();
                     str.Clear();
 
-                    var deathBinaryCreateService = new DeathBinaryCreateService();
-                    deathBinaryCreateService.Generate();
-                    this.deathBinary = (string[])deathBinaryCreateService.GetDeathBinary();
-                    if (this.deathBinary == null || this.deathBinary.Length <= 0)
+                    if (this.isCheckedLevel1 == true)
                     {
-                        return;
+                        var deathBinaryCreateService = new DeathBinaryCreateService();
+                        deathBinaryCreateService.Generate();
+                        this.deathBinary = (string[])deathBinaryCreateService.GetDeathBinary();
+                        if (this.deathBinary == null || this.deathBinary.Length <= 0)
+                        {
+                            return;
+                        }
+                        this.deathBinaryManager.SetDeathBinary(this.deathBinary.Clone());
                     }
-
-                    this.deathBinaryManager.CleanDeathBinary();
-                    this.deathBinaryManager.SetDeathBinary(this.deathBinary.Clone());
+                    else if (this.isCheckedLevel2 == true)
+                    {
+                        this.deathBinaryManager.CleanDeathBinary();
+                    }
 
                     var refineProcessService = new RefineDataProcessService();
                     refineProcessService.RefineProcess();

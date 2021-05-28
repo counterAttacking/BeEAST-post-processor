@@ -115,7 +115,7 @@ namespace BeEASTPostProcessor.Service
             {
                 var logWrite = new LogFileWriteService(e);
                 logWrite.MakeLogFile();
-                MessageBox.Show("Can not make Earthquake Result.csv", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Can not make Result.csv", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

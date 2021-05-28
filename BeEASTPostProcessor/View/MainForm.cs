@@ -103,6 +103,13 @@ namespace BeEASTPostProcessor.View
 
         private async void MsiRun_Click(object sender, EventArgs e)
         {
+            var frmModeSelect = new ModeSelectForm();
+            frmModeSelect.ShowDialog();
+            if (frmModeSelect.isClicked == false)
+            {
+                return;
+            }
+
             try
             {
                 var str = new StringBuilder();
@@ -110,7 +117,7 @@ namespace BeEASTPostProcessor.View
                 str.AppendLine("Running is started");
                 this.frmStatus.Msg = str.ToString();
 
-                var manager = new ExtractManager();
+                var manager = new ExtractManager(frmModeSelect.isCheckedLevel1, frmModeSelect.isCheckedLevel2);
                 await manager.Run();
 
                 str.Clear();
@@ -154,7 +161,7 @@ namespace BeEASTPostProcessor.View
                 }
                 else
                 {
-                    str.AppendLine("Earthquake Result.csv is created");
+                    str.AppendLine("Result.csv is created");
                 }
                 this.frmStatus.Msg = str.ToString();
 

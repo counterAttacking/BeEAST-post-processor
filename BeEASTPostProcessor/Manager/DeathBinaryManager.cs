@@ -39,7 +39,6 @@ namespace BeEASTPostProcessor.Manager
             }
             else
             {
-                this.deathBinary = this.tmpDeathBinary.ToArray();
                 return this.deathBinary.Clone();
             }
         }
@@ -48,6 +47,7 @@ namespace BeEASTPostProcessor.Manager
         {
             this.tmpDeathBinary = this.tmpDeathBinary.Distinct().ToList();
             this.tmpDeathBinary.Sort();
+            this.deathBinary = this.tmpDeathBinary.ToArray();
         }
     }
 }
